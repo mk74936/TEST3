@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using TEST3.API.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +9,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<TEST3DBContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TEST3"));
+});
 
 var app = builder.Build();
 
